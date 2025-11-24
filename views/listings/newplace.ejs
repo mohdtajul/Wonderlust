@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List your place</title>
+</head>
+<body>
+    <% layout('/layouts/boilerplate') -%> 
+    
+    <h2>List your place to the wonderlust</h2>
+    <form method="post" action="/listings/new">
+        <label for="title">Title: </label>
+        <input type="text" name="title" id="title" placeholder="enter title"><br><br>
+        <label for="description">Description: </label>
+        <textarea name="description" id="description" ></textarea><br><br>
+        <label for="url/link">Url: </label>
+        <input type="text" name="url" id="url/link" placeholder="enter url/link"> <br><br>
+        <label for="price">Price: </label>
+        <input type="number" name="price" id="price" placeholder="enter price"><br><br>
+        <label for="location">Location: </label>
+        <input type="text" name="location" id="location" placeholder="enter location"><br><br>
+        <label for="country">Country: </label>
+        <input type="text" name="country" id="country" placeholder="enter country"><br><br>
+
+        <button>submit </button>
+
+    </form>
+</body>
+</html>
