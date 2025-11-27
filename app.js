@@ -36,6 +36,7 @@ app.get("/",(req,res)=>{
 app.get("/listings",async (req,res)=>{
     const allListings = await Listing.find({}) // mongo se pura listings collection ka data liya h
     res.render("listings/index.ejs",{allListings})
+
 })
 
 app.get("/listings/new",(req,res)=>{
@@ -52,16 +53,11 @@ app.get("/listings/:id",async(req,res)=>{
 
 // CREATE API Call
 
-app.post("/listings/new",(req,res)=>{
-    let {title,description,price,location,country} = req.body;
-    Listing.create({
-        title: title,
-        description: description,
-        price: price,
-        location: location,
-        country: country,
-    })
+app.post("/listings/new",async (req,res)=>{
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
     res.redirect("/listings")
+    
 })
 
 app.get("/listings/:id/edit",async (req,res)=>{
@@ -73,14 +69,14 @@ app.get("/listings/:id/edit",async (req,res)=>{
 // UPDATE API Call
 app.put("/listings/:id",async(req,res)=>{
    let {id}= req.params
-   let {title,description,url,price,location,country} = req.body
+   let {listing} = req.body
      const updatedData = await Listing.findByIdAndUpdate(id,{
-        title: title,
-        description: description,
-        url: url,
-        price: price,
-        location: location,
-        country: country
+        title: listing.title,
+        description: listing.description,
+        image: listing.image.url,
+        price: listing.price,
+        location: listing.location,
+        country: listing.country
    })
 //    console.log(updatedData)
    res.redirect("/listings")
