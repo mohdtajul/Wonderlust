@@ -13,10 +13,11 @@ const listingSchema = new mongoose.Schema({
         filename:String,
         url:{
             type:String,
-            default:"https://pixabay.com/photos/beautiful-natural-image-1844362/",
+            default:"https://cdn.pixabay.com/photo/2016/11/06/22/28/sundown-1807524_1280.jpg",
             set: (v)=>
                 v===""
-                ?"https://pixabay.com/photos/beautiful-natural-image-1844362/"
+                ?"https://cdn.pixabay.com/photo/2016/11/06/22/28/sundown-1807524_1280.jpg"
+
                 :v,
         }
     },
