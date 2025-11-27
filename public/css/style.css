@@ -33,7 +33,7 @@ body{
 }
 
 .f-info-links , 
-.f-info-socials, f-info-brand{
+.f-info-socials, .f-info-brand{
     width: 100%;
     display: flex;
     align-items: center;
@@ -102,4 +102,30 @@ body{
 .edit-btn{
     background-color: #fe424d  !important;
     border: none !important;
+    padding: 0.375rem 0.75rem;   /* SAME as Bootstrap btn */
+
+}
+
+/* show page */
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.edit-bt{
+    margin-bottom: 25px;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
 }
