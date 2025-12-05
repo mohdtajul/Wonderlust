@@ -53,10 +53,15 @@ app.get("/listings/:id",async(req,res)=>{
 
 // CREATE API Call
 
-app.post("/listings/new",async (req,res)=>{
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings")
+app.post("/listings/new",async (req,res,next)=>{
+    try{
+        const newListing = new Listing(req.body.listing);
+        await newListing.save();
+        res.redirect("/listings")
+    }catch(err){
+        next(err);
+    }
+
     
 })
 
@@ -89,6 +94,11 @@ app.delete("/listings/:id",async(req,res)=>{
     await Listing.findByIdAndDelete(id)
     res.redirect("/listings")
 
+})
+
+// custom error handler
+app.use((err,req,res,next)=>{
+    res.send("Something went wrong!")
 })
 
 app.listen(port,()=>{
