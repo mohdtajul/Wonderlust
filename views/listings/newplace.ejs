@@ -14,6 +14,12 @@
                         class="form-control"
                         required
                     >
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Enter Title!
+                    </div>
 
                 </div>
 
@@ -22,8 +28,13 @@
                     <textarea 
                         id="description"
                         name="listing[description]" 
-                        class="form-control" >
+                        class="form-control" 
+                        required 
+                    >
                     </textarea>
+                    <div class="invalid-feedback">
+                        Please enter short description!
+                    </div>
 
                 </div>
 
@@ -35,7 +46,11 @@
                         name="listing[image][url]"
                         placeholder="paste url/link"
                         class="form-control"
+                        required
                     > 
+                    <div class="invalid-feedback">
+                        image should be valid!
+                    </div>
 
                 </div>
 
@@ -50,6 +65,9 @@
                             class="form-control"
                             required
                         >
+                        <div class="invalid-feedback">
+                            Price should be valid!
+                        </div>
 
                     </div>
 
@@ -63,6 +81,9 @@
                             class="form-control"
                             required
                         >
+                        <div class="invalid-feedback">
+                            Country should be valid!
+                        </div>
 
                     </div>
                 </div>
@@ -77,6 +98,9 @@
                         class="form-control"
                         required
                     >
+                    <div class="invalid-feedback">
+                        Location should be valid!
+                    </div>
 
                 </div><br><br>
 
