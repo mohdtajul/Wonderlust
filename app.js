@@ -105,7 +105,7 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     })
 )
 
-// jab koi route match na krega tb chlega ye
+// jab koi route match na krega tb chlega ye New route 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
 });
@@ -113,7 +113,8 @@ app.use((req, res, next) => {
 // custom error handler
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong!" } = err;
-    res.status(statusCode).send(message);
+    res.render("error.ejs",{message})
+    //res.status(statusCode).send(message);
 });
 
 
