@@ -6,6 +6,7 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
+const {listingSchema} = require("./schema.js")
 
 require('dotenv').config();
 
@@ -34,6 +35,16 @@ app.get("/",(req,res)=>{
     res.send("req is comming")
 })
 
+const validationListing = (req,res,next)=>{
+    let error = listingSchema.validate(req.body)
+        if(error){
+            let errMsg = error.details.map((el)=> el.message).join(",")
+            throw new ExpressError(404,errMsg)
+        }else{
+            next();
+        }
+}
+
 
 // READ data API Call || read route
 app.get("/listings",wrapAsync(async (req,res)=>{
@@ -58,10 +69,7 @@ app.get("/listings/:id",wrapAsync(async(req,res)=>{
 
 // CREATE API Call || create route
 
-app.post("/listings/new",wrapAsync(async (req,res,next)=>{
-        if(!req.body.listing){
-            throw new ExpressError(400,"send valid listing data")
-        }
+app.post("/listings/new",validationListing, wrapAsync(async (req,res,next)=>{
         const newListing = new Listing(req.body.listing);
         await newListing.save();
         res.redirect("/listings")
@@ -76,10 +84,8 @@ app.get("/listings/:id/edit",wrapAsync(async (req,res)=>{
 )
 
 // UPDATE API Call || update route
-app.put("/listings/:id",wrapAsync(async(req,res)=>{
-    if(!req.body.listing){
-        throw new ExpressError(400,"send valid listing data")
-    }
+app.put("/listings/:id",validationListing, wrapAsync(async(req,res)=>{
+
     let {id}= req.params
     let {listing} = req.body
     const updatedData = await Listing.findByIdAndUpdate(id,{
