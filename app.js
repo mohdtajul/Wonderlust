@@ -7,6 +7,7 @@ const ejsMate = require("ejs-mate")
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema} = require("./schema.js")
+const Review = require("./models/reviews.js")
 
 require('dotenv').config();
 
@@ -110,6 +111,19 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
 
     })
 )
+
+// reviews route
+app.post("/listings/:id/reviews", async(req,res)=>{
+    let listing = await Listing.findById(req.params.id)
+    let newReview = new Review(req.body.review)
+    listing.reviews.push(newReview)
+
+    await newReview.save()
+    await listing.save()
+
+    console.log(listing.reviews)
+    res.redirect(`/listings/${listing._id}`)
+})
 
 // jab koi route match na krega tb chlega ye New route 
 app.use((req, res, next) => {
