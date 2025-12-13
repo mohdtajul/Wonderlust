@@ -24,10 +24,12 @@ const listingSchema = new mongoose.Schema({
     price: Number,
     location: String,
     country: String,
-    reviews:{
-        type: mongoose.Types.ObjectId,
-        ref: 'Review'
-    }
+    reviews:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 })
 
 // created model
