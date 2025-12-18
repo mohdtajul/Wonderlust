@@ -37,24 +37,26 @@ app.get("/",(req,res)=>{
 })
 
 const validationListing = (req,res,next)=>{
-    let error = listingSchema.validate(req.body)
-        if(error){
-            let errMsg = error.details.map((el)=> el.message).join(",")
-            throw new ExpressError(404,errMsg)
-        }else{
-            next();
-        }
+    const { error } = listingSchema.validate(req.body);
+
+    if(error){
+        const errMsg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+    next();
 }
 
+
 const validateReview = (req,res,next)=>{
-    let error = reviewSchema.validate(req.body)
-        if(error){
-            let errMsg = error.details.map((el)=> el.message).join(",")
-            throw new ExpressError(404,errMsg)
-        }else{
-            next();
-        }
+    const { error } = reviewSchema.validate(req.body);
+
+    if(error){
+        const errMsg = error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+    next();
 }
+
 
 
 // READ data API Call || read route
@@ -69,14 +71,13 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/newplace.ejs") // rendering form to get data for listing 
 })
 
-app.get("/listings/:id",wrapAsync(async(req,res)=>{
-    let {id}= req.params
-    const listing = await Listing.findById(id)
-    // console.log(listing)
-    res.render("listings/show.ejs",{listing})
+app.get("/listings/:id", wrapAsync(async (req, res) => {
+    const listing = await Listing.findById(req.params.id)
+        .populate("reviews"); //  MOST IMPORTANT
 
-    })
-)
+    res.render("listings/show.ejs", { listing });
+}));
+
 
 // CREATE API Call || create route
 
@@ -102,7 +103,7 @@ app.put("/listings/:id",validationListing, wrapAsync(async(req,res)=>{
     const updatedData = await Listing.findByIdAndUpdate(id,{
         title: listing.title,
         description: listing.description,
-        image: listing.image.url,
+        image: { url: listing.image.url },
         price: listing.price,
         location: listing.location,
         country: listing.country
@@ -124,16 +125,16 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
 
 // reviews route
 app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res)=>{
-    let listing = await Listing.findById(req.params.id)
-    let newReview = new Review(req.body.review)
-    listing.reviews.push(newReview)
+        let listing = await Listing.findById(req.params.id)
+        let newReview = new Review(req.body.review)
+        await newReview.save()
+    
+        listing.reviews.push(newReview)
+        await listing.save()
 
-    await newReview.save()
-    await listing.save()
-
-    console.log(listing.reviews)
-    res.redirect(`/listings/${listing._id}`)
-})
+        console.log(listing.reviews)
+        res.redirect(`/listings/${listing._id}`)
+    })
 )
 
 // jab koi route match na krega tb chlega ye New route 
