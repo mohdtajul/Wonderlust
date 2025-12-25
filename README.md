@@ -75,10 +75,6 @@ Other Tools & Libraries
 ![Edit Listing](screenshots/Edit_Listing.png)
 
 
-
-
-
-
 ## 📂 Project Structure
 ```bash
 Wanderlust/
