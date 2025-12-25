@@ -128,7 +128,7 @@ These environment variables are securely configured on Render for production.
 
 1️⃣ Clone the repository
 
-git clone https://github.com/mohdtajul/Wonderlust.git
+git clone https://github.com/mohdtajul/Wanderlust.git
 
 
 2️⃣ Go to project directory
@@ -149,7 +149,7 @@ npm start
 
 6️⃣ Open in browser
 
-http://localhost:<PORT>
+http://localhost:PORT
 
 🚀 Deployment
 
@@ -195,6 +195,6 @@ Mohd Tajul
 
 - GitHub: https://github.com/mohdtajul
 
-- Project Repo: https://github.com/mohdtajul/Wonderlust.git
+- Project Repo: https://github.com/mohdtajul/Wanderlust.git
 
 ⭐ If you find this project helpful, consider giving it a star!
