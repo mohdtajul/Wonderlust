@@ -63,16 +63,16 @@ Other Tools & Libraries
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](screenshots/Home_Page.png)
+![Home Page](Screenshots/Home_Page.png)
 
 ### Listing Details
-![Listing Details](screenshots/Listing_Details.png)
+![Listing Details](Screenshots/Listing_Details.png)
 
 ### Add New Listing
-![Add Listing](screenshots/New_Listing.png)
+![Add Listing](Screenshots/New_Listing.png)
 
 ### Edit Listing
-![Edit Listing](screenshots/Edit_Listing.png)
+![Edit Listing](Screenshots/Edit_Listing.png)
 
 
 ## 📂 Project Structure
