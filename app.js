@@ -12,7 +12,7 @@ const Review = require("./models/reviews.js")
 require('dotenv').config();
 
 
-const port = process.env.PORT
+const port = process.env.PORT || 8080
 const Listing = require("./models/listing.js") // model imported
 
 app.set("view engine","ejs")
