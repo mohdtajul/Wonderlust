@@ -33,7 +33,7 @@ async function main(){
 
 // API Calls
 app.get("/",(req,res)=>{
-    res.send("req is comming")
+    res.redirect("/listings");
 })
 
 const validationListing = (req,res,next)=>{
