@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const Review = require('./reviews.js');
 
 // created schema for collection
 const listingSchema = new mongoose.Schema({
@@ -30,6 +31,13 @@ const listingSchema = new mongoose.Schema({
             ref: 'Review'
         }
     ]
+})
+
+// middleware to delete all listing reviews when listing is deleted
+listingSchema.post("findOneAndDelete", async(listing)=>{
+    if(listing){
+        await Review.deleteMany({_id: {$in: listing.reviews}})
+    }
 })
 
 // created model
