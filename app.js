@@ -6,6 +6,7 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const ExpressError = require("./utils/ExpressError.js")
 const session = require("express-session")
+const flash = require("connect-flash")
 
 const listings = require("./routes/listing.js") // listing routes ka group
 const reviews = require("./routes/review.js") // review routes ka group
@@ -42,13 +43,19 @@ const sessionOptions = {
     }
 }
 
-app.use(session(sessionOptions))
-
-// API Calls
 app.get("/",(req,res)=>{
     res.redirect("/listings");
 })
 
+app.use(session(sessionOptions))
+app.use(flash())
+
+app.use((req,res,next)=>{
+    res.locals.success =req.flash("success")
+    next()
+})
+
+// API Calls
 // jo bhi req /listings se start ho wo listing group me bhej do 
 app.use("/listings", listings)
 
