@@ -66,7 +66,7 @@ router.put("/:id",validationListing, wrapAsync(async(req,res)=>{
         location: listing.location,
         country: listing.country
    })
-  
+    req.flash("success", "Listing Updated")
     res.redirect("/listings")
 
     })
@@ -76,6 +76,7 @@ router.put("/:id",validationListing, wrapAsync(async(req,res)=>{
 router.delete("/:id",wrapAsync(async(req,res)=>{
     let {id} = req.params
     await Listing.findByIdAndDelete(id)
+    req.flash("success", "Listing Deleted")
     res.redirect("/listings")
 
     })
