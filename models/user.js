@@ -1,14 +1,17 @@
-const mongoose = require("mongoose")
-const passportLocalMongoose = require('passport-local-mongoose')
+const mongoose = require("mongoose");
+
+// universal import (ESM + CommonJS safe)
+const passportLocalMongoosePkg = require("passport-local-mongoose");
+const passportLocalMongoose =
+  passportLocalMongoosePkg.default || passportLocalMongoosePkg;
 
 const userSchema = new mongoose.Schema({
-    email:{
-        type: String,
-        required: true,
-    },
-})
+  email: {
+    type: String,
+    required: true,
+  },
+});
 
-User.plugin(passportLocalMongoose)
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User", userSchema)
-
+module.exports = mongoose.model("User", userSchema);
