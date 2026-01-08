@@ -11,8 +11,9 @@ const passport = require("passport")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
 
-const listings = require("./routes/listing.js") // listing routes ka group
-const reviews = require("./routes/review.js") // review routes ka group
+const listingRouter = require("./routes/listing.js") // listing routes ka group
+const reviewRouter = require("./routes/review.js") // review routes ka group
+const userRouter = require("./routes/user.js")
 
 require('dotenv').config();
 
@@ -66,11 +67,23 @@ app.use((req,res,next)=>{
     next()
 })
 
+// app.get("/demouser",async(req,res)=>{
+//     let fakeUser = new User({
+//         email: "student@gmail.com",
+//         username: "delta-student",
+
+//     })
+//     let registeredUser = await User.regitster(fakeUser,"helloworld")
+//     res.send(registeredUser)
+// })
+
 // API Calls
 // jo bhi req /listings se start ho wo listing group me bhej do 
-app.use("/listings", listings)
+app.use("/listings", listingRouter)
 
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings/:id/reviews", reviewRouter)
+app.use("/",userRouter)
+
 
 
 // jab koi route match na krega tb chlega ye New route 
