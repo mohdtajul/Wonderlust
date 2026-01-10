@@ -4,6 +4,8 @@ const wrapAsync = require("../utils/wrapAsync.js")
 const ExpressError = require("../utils/ExpressError.js")
 const {listingSchema} = require("../schema.js")
 const Listing = require("../models/listing.js") // model imported
+const { isLoggedIn } = require("../middleware.js");
+
 
 
 const validationListing = (req,res,next)=>{
@@ -24,7 +26,7 @@ router.get("/",wrapAsync(async (req,res)=>{
     })
 )
 
-router.get("/new",(req,res)=>{
+router.get("/new",isLoggedIn,(req,res)=>{
     res.render("listings/newplace.ejs") // rendering form to get data for listing 
 })
 
@@ -50,7 +52,7 @@ router.post("/new",validationListing, wrapAsync(async (req,res,next)=>{
     })
 );
     
-router.get("/:id/edit",wrapAsync(async (req,res)=>{
+router.get("/:id/edit",isLoggedIn,wrapAsync(async (req,res)=>{
     let {id} = req.params
     const listing = await Listing.findById(id)
     if(!listing){
@@ -64,7 +66,7 @@ router.get("/:id/edit",wrapAsync(async (req,res)=>{
 )
 
 // UPDATE API Call || update route
-router.put("/:id",validationListing, wrapAsync(async(req,res)=>{
+router.put("/:id",isLoggedIn,validationListing, wrapAsync(async(req,res)=>{
 
     let {id}= req.params
     let {listing} = req.body
@@ -83,7 +85,7 @@ router.put("/:id",validationListing, wrapAsync(async(req,res)=>{
 )
 
 // DELETE API Call || delete route
-router.delete("/:id",wrapAsync(async(req,res)=>{
+router.delete("/:id",isLoggedIn,wrapAsync(async(req,res)=>{
     let {id} = req.params
     await Listing.findByIdAndDelete(id)
     req.flash("success", "Listing Deleted")
